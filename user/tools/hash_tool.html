@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ef-shops.at - HashPRO</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
+  <style>
+    /* Grundreset & Box-Sizing */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: transparent;
+      backdrop-filter: blur(12px);
+      color: #333;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    body {
+      flex: 1 0 auto;
+      padding: 0; /* unten Platz für Footer */
+      max-width: 700px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 30px;
+      letter-spacing: 1.2px;
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      margin-top: 15px;
+      color: #34495e;
+    }
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 12px 15px;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: inset 0 2px 5px rgb(0 0 0 / 0.05);
+      font-weight: 500;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    input[type="text"]:focus, input[type="number"]:focus {
+      border-color: #3498db;
+      box-shadow: 0 0 12px rgba(52, 152, 219, 0.5);
+      outline: none;
+      background: #f0f8ff;
+    }
+    button {
+      margin-top: 30px;
+      background: linear-gradient(135deg, #3498db, #2980b9);
+      color: white;
+      border: none;
+      padding: 14px 0;
+      font-size: 18px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: box-shadow 0.3s, transform 0.2s;
+      width: 100%;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      box-shadow:
+        0 8px 15px rgba(52, 152, 219, 0.3),
+        0 4px 6px rgba(41, 128, 185, 0.25);
+    }
+    button:hover {
+      box-shadow:
+        0 15px 25px rgba(52, 152, 219, 0.45),
+        0 8px 12px rgba(41, 128, 185, 0.35);
+      transform: translateY(-3px);
+    }
+    #result {
+      margin-top: 20px;
+      width: 100%;
+      height: 160px;
+      padding: 20px;
+      border-radius: 20px;
+      background: #ffffffcc;
+      box-shadow:
+        0 15px 30px rgba(0,0,0,0.07),
+        inset 0 0 10px rgba(0,0,0,0.05);
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 15px;
+      white-space: pre-wrap;
+      overflow-x: auto;
+      user-select: all;
+      color: #2c3e50;
+      backdrop-filter: blur(6px);
+    }
+    .info {
+      margin-top: 12px;
+      font-style: italic;
+      color: #666;
+      text-align: center;
+      font-weight: 500;
+    }
+    /* MODAL */
+    #modalOverlay {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(44,62,80,0.85), rgba(52,73,94,0.85));
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      backdrop-filter: blur(8px);
+      transition: opacity 0.4s ease;
+      opacity: 0;
+    }
+    #modalOverlay.show {
+      display: flex;
+      opacity: 1;
+    }
+    #modalBox {
+      background: #fff;
+      padding: 30px 40px;
+      border-radius: 24px;
+      max-width: 380px;
+      box-shadow:
+        0 10px 40px rgba(0,0,0,0.15),
+        0 4px 20px rgba(52, 152, 219, 0.3);
+      text-align: center;
+      font-size: 18px;
+      color: #34495e;
+      font-weight: 600;
+      position: relative;
+      transform: translateY(-15px);
+      animation: floatUp 0.35s ease forwards;
+    }
+    @keyframes floatUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    #modalBox button {
+      margin-top: 28px;
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
+      border: none;
+      color: white;
+      padding: 12px 30px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      box-shadow:
+        0 8px 20px rgba(231, 76, 60, 0.4),
+        0 4px 8px rgba(192, 57, 43, 0.3);
+      transition: box-shadow 0.3s ease, transform 0.15s ease;
+    }
+    #modalBox button:hover {
+      box-shadow:
+        0 14px 30px rgba(231, 76, 60, 0.6),
+        0 7px 14px rgba(192, 57, 43, 0.5);
+      transform: translateY(-2px);
+    }
+
+    /* Footer */
+    footer {
+      flex-shrink: 0;
+      background: #2980b9;
+      color: white;
+      text-align: center;
+      padding: 14px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      box-shadow: 0 -4px 12px rgba(41, 128, 185, 0.6);
+      user-select: none;
+      z-index: 9999;
+    }
+    footer a {
+      color: #f1c40f;
+      text-decoration: none;
+      font-weight: 700;
+    }
+    footer a:hover,
+    footer a:focus {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>SHA-256 Hash Generator</h1>
+
+  <label for="inputPass">Passwort eingeben:</label>
+  <input type="text" id="inputPass" placeholder="Passwort hier eingeben" autocomplete="off" />
+
+  <label for="inputTimes">Wie oft soll gehasht werden?</label>
+  <input type="number" id="inputTimes" value="5" min="1" max="100000" step="1" />
+
+  <button id="btnHashCalculate">Hash berechnen</button>
+
+  <!-- Anzeige wie oft gehasht wurde -->
+  <div id="hashCountInfo" class="info" aria-live="polite"></div>
+
+  <!-- Nur der finale Hash wird im Textfeld angezeigt -->
+  <pre id="result" aria-live="polite" aria-atomic="true"></pre>
+
+  <!-- Modal für Fehlermeldungen -->
+  <div id="modalOverlay" role="alertdialog" aria-modal="true" aria-labelledby="modalMessage" tabindex="-1">
+    <div id="modalBox">
+      <div id="modalMessage"></div>
+      <button id="modalCloseBtn" aria-label="Popup schließen">Schließen</button>
+    </div>
+  </div>
+
+  <script>
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalMessage = document.getElementById('modalMessage');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+
+    function showModal(message) {
+      modalMessage.textContent = message;
+      modalOverlay.classList.add('show');
+      modalCloseBtn.focus();
+    }
+
+    function closeModal() {
+      modalOverlay.classList.remove('show');
+      document.getElementById('inputPass').focus();
+    }
+
+    modalCloseBtn.addEventListener('click', closeModal);
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modalOverlay.classList.contains('show')) {
+        closeModal();
+      }
+    });
+
+    // Hash-Funktion mit mehrfacher Wiederholung
+    function hashMultipleTimes(input, times) {
+      let hash = input;
+      for (let i = 0; i < times; i++) {
+        hash = sha256(hash);
+      }
+      return hash;
+    }
+
+    document.getElementById('btnHashCalculate').addEventListener('click', () => {
+      const pw = document.getElementById('inputPass').value.trim();
+      const times = parseInt(document.getElementById('inputTimes').value, 10);
+      const resultEl = document.getElementById('result');
+      const infoEl = document.getElementById('hashCountInfo');
+
+      if (!pw) {
+        showModal('Bitte gib ein Passwort ein!');
+        return;
+      }
+      if (isNaN(times) || times < 1 || times > 100000) {
+        showModal('Bitte gib eine Zahl zwischen 1 und 100000 ein!');
+        return;
+      }
+
+      infoEl.textContent = '';
+      resultEl.textContent = 'Bitte warten...';
+
+      // Kleine Pause, damit UI updatet bevor gerechnet wird
+      setTimeout(() => {
+        const hash = hashMultipleTimes(pw, times);
+        infoEl.textContent = `Hash nach ${times} Wiederholungen:`;
+        resultEl.textContent = hash;
+      }, 50);
+    });
+  </script>
+
+</body>
+</html>

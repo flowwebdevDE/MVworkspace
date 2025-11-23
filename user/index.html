@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Workspace - Angemeldet</title>
+<link rel="stylesheet" href="data/styles/main.css">
+<link rel="stylesheet" href="data/styles/mobile.css">
+</head>
+<body>
+
+<header>
+  <h2 class="logo">Workspace</h2>
+  <div id="datetime-container"></div>
+  <div style="display:flex; align-items:center;">
+    <!--<button id="darkmode-toggle">🌙 Darkmode</button>-->
+    <button class="logout-button" id="logout-btn" aria-label="Logout">Logout</button>
+  </div>
+</header>
+
+<aside class="sidebar">
+  <h2>Interne Links</h2>
+  <ul>
+    <li><a href="start.html" target="iframe_a">Startseite</a></li>
+    <li><a href="https://example.com" target="iframe_a">Notizen</a></li>
+    <li><a href="tools/hash_tool.html" target="iframe_a"><em style="color: rgba(0, 0, 0, 0.402);">Hash-Tool</em></a></li>
+  </ul>
+  <h2 style="margin-top: 15px;">Externe Links</h2>
+  <ul>  
+    <li><a href="https://calendar.google.com/calendar/u/0/r?pli=1" target="_blank">Kalender</a></li>
+    <li><a href="https://mail.google.com/mail/u/0/?pli=1#inbox" target="_blank">Mail</a></li>
+    <li><a href="https://example.com" target="_blank">Shopify Aufträge</a></li>
+    <li><a href="https://myvelo.de" target="_blank">Shop Website</a></li>
+  </ul>
+  <button class="btn-side" id="darkmode-toggle">🌙 Darkmode</button>
+</aside>
+
+<main>
+  <iframe src="start.html" name="iframe_a" height="100%" width="100%"></iframe>
+</main>
+
+<footer>
+  <p>Workspace | by <a href="https://flowwebdesign.de" style="text-decoration: none;">FlowWebDesign</a> | Version 26.2</p>
+</footer>
+
+<!-- Logout Modal -->
+<div id="logout-confirm" class="confirm-overlay" style="display:none;">
+  <div class="confirm-box" role="dialog" aria-modal="true" aria-labelledby="logout-title">
+    <h3 id="logout-title">Möchtest du dich wirklich abmelden?</h3>
+    <div>
+      <button class="yes" id="confirm-yes">Ja</button>
+      <button class="no" id="confirm-no">Nein</button>
+    </div>
+  </div>
+</div>
+
+<script src="data/scripts/mobile.js"></script>
+<script src="data/scripts/function.js"></script>
+</body>
+</html>

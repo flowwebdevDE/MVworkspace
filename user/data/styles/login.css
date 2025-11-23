@@ -1,0 +1,208 @@
+    :root {
+      --bg-light-1: #a8dadc;
+      --bg-light-2: #457b9d;
+      --bg-light-3: #ffd6a5;
+      --bg-light-4: #ffb4a2;
+
+      --bg-dark-1: #1e3c4f;
+      --bg-dark-2: #114b5f;
+      --bg-dark-3: #2a9d8f;
+      --bg-dark-4: #264653;
+
+      --text-light: #1e3c4f;
+      --text-dark: #a8dadc;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: url("/user/data/bg.jpg");
+      background-size: cover;
+      animation: gradientLight 20s ease infinite;
+      transition: background 0.6s ease, color 0.6s ease;
+      color: var(--text-light);
+      overflow-x: hidden;
+    }
+    body.dark-mode {
+      background: linear-gradient(135deg, var(--bg-dark-1), var(--bg-dark-2), var(--bg-dark-3), var(--bg-dark-4));
+      background-size: 400% 400%;
+      animation: gradientDark 25s ease infinite;
+      color: var(--text-dark);
+    }
+
+    body.bg-theme-1 {background: linear-gradient(135deg, #6a11cb, #2575fc);}
+    body.bg-theme-2 {background: url("/user/data/bg.jpg") no-repeat center center fixed; background-size: cover;}
+    body.bg-theme-3 {background: linear-gradient(135deg, #ff9966, #ff5e62);}  /* Sunset */
+    body.bg-theme-4 {background: linear-gradient(135deg, #00c9ff, #92fe9d);}  /* Ocean */
+    body.bg-theme-5 {background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);} /* Dark Night */
+    body.bg-theme-6 {background: linear-gradient(135deg, #12c2e9, #c471ed, #f64f59);} /* Neon */
+
+    @keyframes gradientLight {
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+    @keyframes gradientDark {
+      0%{background-position:100% 50%}
+      50%{background-position:0% 50%}
+      100%{background-position:100% 50%}
+    }
+
+    .statusbar {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 40px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 0 25px; /* Zahnrad 15px nach innen */
+      background: rgba(255, 255, 255, 0);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+    }
+    body.dark-mode .statusbar {
+      background: rgba(10 25 40 / 0.4);
+    }
+
+    .settings-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      color: inherit;
+      opacity: 0.7;
+      transition: opacity 0.3s;
+      margin-right: 25px; /* 25px nach innen für Symmetrie */
+    }
+    .settings-btn:hover {
+      opacity: 1;
+    }
+
+    /* Settings Panel */
+    .settings-panel {
+      position: fixed;
+      top: 55px;
+      right: 35px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(15px);
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      display: none;
+      z-index: 2000;
+      min-width: 240px;
+    }
+    body.dark-mode .settings-panel {
+      background: rgba(20,20,20,0.85);
+      color: white;
+    }
+    .settings-panel.active {display:block;}
+    .settings-panel h3 {margin-top:0;font-size:16px;text-align:center;}
+    .theme-option {
+      margin: 6px 0;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 8px;
+      text-align: center;
+      transition: background 0.3s;
+    }
+    .theme-option:hover {background: rgba(0,0,0,0.08);}
+    body.dark-mode .theme-option:hover {background: rgba(255,255,255,0.1);}
+    .close-settings {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      opacity: 0.6;
+      transition: opacity 0.3s;
+    }
+    .close-settings:hover {opacity:1;}
+
+    .clock {
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 120px;
+      text-align: center;
+      margin-top: 100px;
+    }
+
+    .date {
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 40px;
+      text-align: center;
+      margin-top: 5px;
+      color: inherit;
+    }
+
+    .login-box {
+      background: #0000002e;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 30px;
+      color: rgb(33, 33, 33);
+      border-radius: 14px;
+      border: solid 1px rgba(0, 0, 0, 0.169);
+      margin: 150px auto;
+      width: 90%;
+      max-width: 340px;
+      text-align: center;
+      transition: background 0.5s;
+    }
+    body.dark-mode .login-box {background: rgba(34,34,34,0.6);}
+    /* Insel Themes */
+    .login-theme-1 {background: rgba(255,255,255,0.85) !important;}
+    .login-theme-2 {background: rgba(0,0,0,0.75) !important; color:white;}
+    .login-theme-3 {background: rgba(255,182,193,0.85) !important;} /* Rose */
+    .login-theme-4 {background: rgba(173,216,230,0.85) !important;} /* Light Blue */
+    .login-theme-5 {background: rgba(152,251,152,0.85) !important;} /* Mint */
+
+    .login-box input, .login-box button {
+      width: 100%;
+      margin: 10px 0;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      box-sizing: border-box;
+      background: #0000003d;
+      border: solid 1px rgba(0, 0, 0, 0.276);
+    }
+    .login-box button {
+      background: #000a4e97;
+      color: whitesmoke;
+      font-weight: bold;
+      cursor: pointer;
+      border: solid 1px rgba(0, 0, 0, 0.276);
+    }
+
+    .login-box button:hover {
+      background: #000a4ec4;
+    }
+
+    .error {display:none;color:red;margin-top:10px;}
+
+    /* Visually hidden for accessibility */
+    .visually-hidden {
+      position: absolute !important;
+      height: 1px; width: 1px;
+      overflow: hidden;
+      clip: rect(1px, 1px, 1px, 1px);
+      white-space: nowrap;
+      border: 0;
+      padding: 0;
+      margin: -1px;
+    }
+
+    footer {
+      text-align:center;
+      margin-top:auto;
+      padding:15px;
+      font-size:14px;
+      opacity:0.8;
+      color: white;
+    }

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Workspace</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: transparent;
+    }
+    body {
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      width: 100%;
+      color: #ffffff;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-top: 40px;
+      margin-bottom: 20px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      max-width: 600px;
+      margin: 0 auto 40px auto;
+      opacity: 0.9;
+    }
+    .info-box {
+      background: rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 25px;
+      border-radius: 16px;
+      margin-top: 30px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    .info-box h3 {
+      margin-top: 0;
+      font-weight: 600;
+      color: #fff;
+    }
+    .info-box p {
+      font-size: 1rem;
+      opacity: 0.8;
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Willkommen im Workspace!</h1>
+  <p>
+    Dies ist dein persönlicher Bereich. Nutze die Navigation auf der linken Seite,
+    um auf deine Tools und Links zuzugreifen und deinen Arbeitsalltag zu organisieren.
+  </p>
+
+  <div class="info-box">
+    <h3 id="info-box-title"></h3>
+    <p id="info-box-content"></p>
+  </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const titleElement = document.getElementById('info-box-title');
+    const contentElement = document.getElementById('info-box-content');
+
+    const contentPool = [
+        { type: 'tip', title: 'Tipp', text: 'Nutze die Links in der Sidebar für den schnellen Zugriff auf deine wichtigsten Seiten.' },
+        { type: 'motivation', title: 'Motivation', text: 'Der beste Weg, die Zukunft vorauszusagen, ist, sie zu gestalten.' },
+        { type: 'time' },
+        { type: 'tip', title: 'Tipp', text: 'Mache regelmäßige Pausen, um konzentriert zu bleiben.' },
+        { type: 'motivation', title: 'Motivation', text: 'Erfolg ist die Summe kleiner Anstrengungen, die Tag für Tag wiederholt werden.' },
+        { type: 'date' },
+        { type: 'tip', title: 'Tipp', text: 'Verwende den Darkmode-Schalter, um deine Augen bei Dunkelheit zu schonen.' },
+        { type: 'motivation', title: 'Motivation', text: 'Glaube an dich und alles, was du bist. Wisse, dass etwas in dir ist, das größer ist als jedes Hindernis.' },
+    ];
+
+    let clockInterval = null;
+
+    function updateInfoBox() {
+        // Stoppt einen laufenden Uhr-Interval
+        if (clockInterval) {
+            clearInterval(clockInterval);
+            clockInterval = null;
+        }
+
+        const randomIndex = Math.floor(Math.random() * contentPool.length);
+        const item = contentPool[randomIndex];
+
+        if (item.type === 'time') {
+            titleElement.textContent = 'Aktuelle Uhrzeit';
+            const updateClock = () => {
+                const now = new Date();
+                contentElement.textContent = now.toLocaleTimeString('de-DE');
+            };
+            updateClock();
+            clockInterval = setInterval(updateClock, 1000);
+        } else if (item.type === 'date') {
+            titleElement.textContent = 'Heutiges Datum';
+            const now = new Date();
+            contentElement.textContent = now.toLocaleDateString('de-DE', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        } else {
+            titleElement.textContent = item.title;
+            contentElement.textContent = item.text;
+        }
+    }
+
+    // Initialer Aufruf und dann alle 30 Sekunden
+    updateInfoBox();
+    setInterval(updateInfoBox, 30000);
+});
+</script>
+</body>
+</html>

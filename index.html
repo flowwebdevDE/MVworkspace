@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workspace - Login</title>
+
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="user/data/styles/login.css">
+  <script src="user/data/scripts/lock.js"></script>
+
+</head>
+<body>
+  <div class="statusbar">
+    <button class="settings-btn" id="settingsBtn" style="display: none;" title="Einstellungen">⚙️</button>
+  </div>
+
+  <div class="settings-panel" id="settingsPanel">
+    <span class="close-settings" id="closeSettings">✖</span>
+    <h3>Einstellungen</h3>
+    <label style="display:flex;align-items:center;justify-content:space-between;margin:10px 0;">
+      Darkmode
+      <input type="checkbox" id="darkModeToggle" />
+    </label>
+    <hr>
+    <h3>Hintergrund</h3>
+    <div class="theme-option" data-theme="default">🌈 Standard</div>
+    <div class="theme-option" data-theme="bg-theme-1">💜 Blau/Lila</div>
+    <div class="theme-option" data-theme="bg-theme-2">🖼️ Bild</div>
+    <div class="theme-option" data-theme="bg-theme-3">🌅 Sunset</div>
+    <div class="theme-option" data-theme="bg-theme-4">🌊 Ocean</div>
+    <div class="theme-option" data-theme="bg-theme-5">🌌 Dark Night</div>
+    <div class="theme-option" data-theme="bg-theme-6">⚡ Neon</div>
+    <hr>
+    <h3>Login-Insel</h3>
+    <div class="theme-option" data-login-theme="default">⬜ Standard</div>
+    <div class="theme-option" data-login-theme="login-theme-1">⬜ Hell</div>
+    <div class="theme-option" data-login-theme="login-theme-2">⬛ Dunkel</div>
+    <div class="theme-option" data-login-theme="login-theme-3">🌸 Rose</div>
+    <div class="theme-option" data-login-theme="login-theme-4">💎 Hellblau</div>
+    <div class="theme-option" data-login-theme="login-theme-5">🍃 Mint</div>
+
+    <label for="clockColor">Uhrfarbe</label>
+    <select id="clockColor">
+      <option value="#1e3c4f">Dunkelblau</option>
+      <option value="#a8dadc">Hellblau</option>
+      <option value="#264653">Marine</option>
+      <option value="#ffb4a2">Koralle</option>
+      <option value="#ffffff">Weiß</option>
+    </select>
+  </div>
+
+  <main>
+    <div class="login-box" id="loginBox">
+      <h2>Login</h2>
+      <label for="username" class="visually-hidden">Nutzername</label>
+      <input type="text" id="username" placeholder="Nutzername" autocomplete="username" />
+      <label for="password" class="visually-hidden">Passwort</label>
+      <input type="password" id="password" placeholder="Passwort" autocomplete="current-password" />
+      <button id="loginBtn" type="button">Anmelden</button>
+      <div id="error" class="error">Nutzername oder Passwort falsch.</div>
+    </div>
+  </main>
+    <script src="user/data/scripts/login.js"></script>
+</body>
+</html>
