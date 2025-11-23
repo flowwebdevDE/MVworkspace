@@ -62,7 +62,7 @@
 
     // Login-Logik
     const users = {
-      "Felix": {password:"72bf8297458e0883532ef9cd64898e12ac54ead37acfb33a97abd44a8a537c9f",redirect:"/user/index.html"},
+      "Felix": {password:"72bf8297458e0883532ef9cd64898e12ac54ead37acfb33a97abd44a8a537c9f",redirect:"../user/index.html"},
       
     };
     function hashMultipleTimes(input, times=5) {
@@ -93,4 +93,5 @@
     // Fokus auf Nutzername beim Laden
     window.addEventListener('DOMContentLoaded', () => {
       usernameInput.focus();
+
     });
