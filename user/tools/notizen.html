@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Notizen — Apple Look</title>
+
+    <style>
+        :root {
+            --bg-glass: rgba(255, 255, 255, 0.55);
+            --glass-strong: rgba(255, 255, 255, 0.75);
+            --accent: rgba(0, 122, 255, 0.95);
+            --muted: #6b7280;
+            --radius: 14px;
+            --note-radius: 12px;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            background: transparent;
+            font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, system-ui;
+            color: #0f172a;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .backdrop {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            justify-content: center;
+            align-items: start;
+            padding: 48px;
+        }
+
+        .app {
+            pointer-events: auto;
+            width: min(1150px, calc(100% - 96px));
+            max-width: 1150px;
+            min-height: 500px;
+            border-radius: 20px;
+            padding: 18px;
+            box-sizing: border-box;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(250, 250, 250, 0.56));
+            backdrop-filter: blur(10px) saturate(120%);
+            border: 1px solid rgba(255, 255, 255, 0.45);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 16px;
+        }
+
+        .logo {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            background: var(--glass-strong);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 52px;
+        }
+
+        .logo svg {
+            width: 28px;
+            height: 28px;
+            opacity: 0.98
+        }
+
+        h1 {
+            font-size: 20px;
+            margin: 0;
+            letter-spacing: -0.2px;
+        }
+
+        p.lead {
+            margin: 0;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .toolbar {
+            margin-left: auto;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .btn {
+            background: transparent;
+            border: none;
+            padding: 9px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            color: #06202a;
+            display: inline-flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .btn.primary {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 6px 18px rgba(3, 102, 214, 0.18);
+        }
+
+        /* layout grid */
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 360px;
+            gap: 18px;
+        }
+
+        /* board & notes */
+        .board {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 14px;
+            align-content: start;
+        }
+
+        .note {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(250, 250, 250, 0.55));
+            border-radius: var(--note-radius);
+            padding: 12px;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            box-shadow: 0 6px 18px rgba(20, 20, 20, 0.06);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .note:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(20, 20, 20, 0.08);
+        }
+
+        .note .meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .note .title {
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .note .body {
+            font-size: 14px;
+            color: #123;
+            line-height: 1.4;
+            white-space: pre-wrap;
+            word-break: break-word;
+            flex: 1;
+            outline: none;
+        }
+
+        .note .actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .icon-btn {
+            border: 0;
+            background: transparent;
+            padding: 6px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* sidebar */
+        .side {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            min-height: 300px;
+            padding: 12px;
+            border-radius: 12px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(245, 245, 245, 0.45));
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        .section-title {
+            font-size: 13px;
+            color: var(--muted);
+            margin: 0 0 4px 0;
+        }
+
+        /* responsive */
+        @media (max-width:880px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+
+            .side {
+                order: 2;
+            }
+        }
+
+        .empty {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            border-radius: 12px;
+            color: var(--muted);
+            font-size: 15px;
+            border: 1px dashed rgba(0, 0, 0, 0.04);
+        }
+
+        /* PDF print */
+        #single-print-area {
+            display: none;
+        }
+
+        @media print {
+            body {
+                background: white !important;
+                margin: 0;
+                padding: 20px;
+            }
+
+            header,
+            .toolbar,
+            .side,
+            .note .actions {
+                display: none !important;
+            }
+
+            #single-print-area {
+                display: block !important;
+            }
+
+            #single-print-area h1 {
+                font-size: 26px;
+                margin-bottom: 16px;
+            }
+
+            #single-print-area div {
+                font-size: 16px;
+            }
+        }
+
+        /* Mini-Hilfe */
+        .help-box {
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 10px;
+            margin-top: 12px;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .help-box b {
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="backdrop">
+        <main class="app">
+            <header>
+                <div class="logo" title="Notizen">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 3h8l4 4v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z" stroke="#0b1220"
+                            stroke-opacity="0.9" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M14 3v5h5" stroke="#0b1220" stroke-opacity="0.9" stroke-width="1.2"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <div>
+                    <h1>Notizen</h1>
+                    <p class="lead" style="font-size: 0.7em;">Lokale Notizen · PDF & JSON Export/Import</p>
+                </div>
+                <div class="toolbar">
+                    <button class="btn primary" id="newNoteBtn">Neue Notiz</button>
+                    <button class="btn" id="exportAllBtn" style="display: none;">Alle Notizen PDF</button>
+                    <button class="btn" id="exportJSONBtn">Export JSON</button>
+                    <button class="btn" id="importJSONBtn">Import JSON</button>
+                </div>
+            </header>
+            <section class="content">
+                <div>
+                    <div id="board" class="board"></div>
+                    <div id="empty" class="empty" style="display:none">Keine Notizen vorhanden.</div>
+                </div>
+                <aside class="side" aria-label="Formatierung">
+                    <div class="section-title">Text Format</div>
+                    <div class="toolbar" id="formatToolbar">
+                        <button data-cmd="bold"><b>B</b></button>
+                        <button data-cmd="italic"><i>I</i></button>
+                        <button data-cmd="underline"><u>U</u></button>
+                        <button data-cmd="formatBlock" data-value="h1">H1</button>
+                        <button data-cmd="formatBlock" data-value="h2">H2</button>
+                        <button data-cmd="formatBlock" data-value="p">Text</button>
+                        <button data-cmd="insertUnorderedList">• Liste</button>
+                        <button data-cmd="insertOrderedList">1. Liste</button>
+                    </div>
+                    <div class="help-box">
+                        <b>Tipps:</b><br>
+                        • Markiere Text → klicke auf Format-Buttons<br>
+                        • <b>N</b> → neue Notiz<br>
+                        • <b>Ctrl/Cmd + S</b> → speichern<br>
+                        <!--• <b>📄</b> → Einzelne Notiz als PDF exportieren<br>-->
+                        • <b>Alle Notizen PDF</b> → alle Notizen drucken/exportieren<br>
+                        • JSON Export / Import → Notizen sichern/laden
+                    </div>
+                </aside>
+            </section>
+            <footer class="small" style="font-size: 0.7em; color: #6b7280;">Daten bleiben lokal auf diesem Gerät.</footer>
+        </main>
+    </div>
+
+    <input type="file" id="fileInput" accept="application/json" style="display:none">
+
+    <div id="single-print-area"></div>
+
+    <script>
+        let notes = [];
+        const board = document.getElementById('board');
+        const empty = document.getElementById('empty');
+        const newNoteBtn = document.getElementById('newNoteBtn');
+        const formatToolbar = document.getElementById('formatToolbar');
+        const exportAllBtn = document.getElementById('exportAllBtn');
+        const exportJSONBtn = document.getElementById('exportJSONBtn');
+        const importJSONBtn = document.getElementById('importJSONBtn');
+        const fileInput = document.getElementById('fileInput');
+
+        function uid() { return 'n_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+        function loadNotes() { notes = JSON.parse(localStorage.getItem('apple_notes') || '[]'); render(); }
+        function saveNotes() { localStorage.setItem('apple_notes', JSON.stringify(notes)); }
+
+        function debounce(fn, ms = 300) { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn.apply(this, a), ms); }; }
+
+        function createNote() {
+            const n = { id: uid(), title: '', body: '', created: Date.now(), updated: Date.now() };
+            notes.push(n); saveNotes(); render(); focusNote(n.id); return n;
+        }
+
+        function deleteNote(id) { notes = notes.filter(n => n.id !== id); saveNotes(); render(); }
+
+        function render() {
+            board.innerHTML = '';
+            if (notes.length === 0) { empty.style.display = 'flex'; return; } else empty.style.display = 'none';
+            notes.forEach(n => {
+                const el = document.createElement('article'); el.className = 'note'; el.dataset.id = n.id;
+                const meta = document.createElement('div'); meta.className = 'meta';
+                const title = document.createElement('div'); title.className = 'title'; title.contentEditable = true; title.innerText = n.title;
+                title.oninput = debounce(() => { n.title = title.innerText; n.updated = Date.now(); saveNotes(); });
+                meta.appendChild(title);
+                el.appendChild(meta);
+                const body = document.createElement('div'); body.className = 'body'; body.contentEditable = true; body.innerHTML = n.body;
+                body.oninput = debounce(() => { n.body = body.innerHTML; n.updated = Date.now(); saveNotes(); });
+                el.appendChild(body);
+
+                const actions = document.createElement('div'); actions.className = 'actions';
+                const del = document.createElement('button'); del.className = 'icon-btn'; del.innerText = '🗑️'; del.onclick = e => { e.stopPropagation(); deleteNote(n.id); }
+                actions.appendChild(del);
+                const pdfBtn = document.createElement('button'); pdfBtn.className = 'icon-btn'; pdfBtn.innerText = '📄'; pdfBtn.onclick = e => { e.stopPropagation(); printSingleNote(n); };
+                actions.appendChild(pdfBtn);
+                el.appendChild(actions);
+
+                el.onclick = () => body.focus();
+                board.appendChild(el);
+            });
+        }
+
+        function focusNote(id) { const el = document.querySelector(`.note[data-id="${id}"] .body`); if (el) el.focus(); }
+
+        newNoteBtn.onclick = () => createNote();
+
+        formatToolbar.addEventListener('click', e => {
+            if (!e.target.closest('button')) return;
+            const btn = e.target.closest('button');
+            const cmd = btn.dataset.cmd; const val = btn.dataset.value || null;
+            document.execCommand(cmd, false, val);
+        });
+
+        exportAllBtn.onclick = () => window.print();
+
+        function printSingleNote(note) {
+            const area = document.getElementById('single-print-area');
+            area.innerHTML = `<h1>${note.title || 'Notiz'}</h1><div>${note.body}</div>`;
+            window.print();
+        }
+
+        // JSON Export / Import
+        exportJSONBtn.onclick = () => {
+            const blob = new Blob([JSON.stringify(notes, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a'); a.href = url; a.download = 'notizen.json'; a.click();
+            URL.revokeObjectURL(url);
+        };
+
+        importJSONBtn.onclick = () => fileInput.click();
+        fileInput.addEventListener('change', e => {
+            const f = e.target.files[0];
+            if (!f) return;
+            const reader = new FileReader();
+            reader.onload = () => {
+                try {
+                    const data = JSON.parse(reader.result);
+                    if (Array.isArray(data)) {
+                        const existingIds = new Set(notes.map(n => n.id));
+                        data.forEach(item => {
+                            if (!item.id || existingIds.has(item.id)) item.id = uid();
+                            notes.push(item);
+                        });
+                        saveNotes(); render(); alert('Import erfolgreich');
+                    } else alert('Ungültiges Format');
+                } catch (err) { alert('Fehler beim Import'); }
+            };
+            reader.readAsText(f);
+        });
+
+        // Shortcuts
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') { e.preventDefault(); saveNotes(); }
+            if (e.key.toLowerCase() === 'n') { createNote(); }
+            if (e.key === 'Escape') { document.activeElement.blur(); }
+        });
+
+        loadNotes();
+    </script>
+</body>
+
+</html>

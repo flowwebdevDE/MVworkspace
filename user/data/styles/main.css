@@ -1,359 +1,403 @@
     /* ==== GLOBAL ==== */
-  * {
-    box-sizing: border-box;
-    transition: all 0.25s ease;
-  }
-  :root {
-    --macos-blue: #1668b9;
-    --macos-trans: #0000003f;
-    --macos-gray: #1c1c1e;
-    --macos-bg: #ffffff3a;
-  }
+    * {
+      box-sizing: border-box;
+      transition: all 0.25s ease;
+    }
 
-img {
-  border-radius: 20%;
-}
+    :root {
+      --macos-blue: #1668b9;
+      --macos-trans: #0000003f;
+      --macos-gray: #1c1c1e;
+      --macos-bg: #ffffff1c;
+    }
 
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-image: url("../bg.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
+    img {
+      border-radius: 20%;
+    }
 
-  /* HEADER & FOOTER */
-  header,
-  footer {
-    position: fixed;
-    width: 100%;
-    left: 0;
-    background: var(--macos-bg);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    color: #111;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    padding: 0 20px;
-    height: 60px;
-    backdrop-filter: saturate(180%) blur(10px);
-    -webkit-backdrop-filter: saturate(180%) blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-    z-index: 1000;
-  }
-  header {
-    top: 0;
-    justify-content: space-between;
-  }
-  footer {
-    border-top: solid 1px rgba(255, 255, 255, 0.3);
-    bottom: 0;
-    justify-content: center;
-    font-size: 0.85rem;
-  }
-  .logo {
-    font-size: 1.2rem;
-    font-weight: 600;
-  }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url("../bg.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
 
-  /* BUTTONS */
-  button {
-    background: rgba(255,255,255,0.6);
-    color: #222;
-    border: 1px solid rgba(255,255,255,0.3);
-    border-radius: 12px;
-    padding: 8px 20px;
-    font-weight: 600;
-    cursor: pointer;
-    font-size: 0.95rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  }
-  button:hover {
-    transform: translateY(-2px) scale(1.02);
-    background: rgba(255,255,255,0.9);
-  }
-  .logout-button {
-    background: rgba(231,76,60,0.15);
-    color: #c0392b;
-  }
-  .logout-button:hover {
-    background: rgba(231,76,60,0.35);
-  }
-  #darkmode-toggle {
-    background: rgba(10,132,255,0.15);
-    color: var(--macos-blue);
-    margin-right: 12px;
-  }
-  #darkmode-toggle:hover {
-    background: rgba(10,132,255,0.3);
-  }
+    /* HEADER & FOOTER */
+    header,
+    footer {
+      position: fixed;
+      width: 100%;
+      left: 0;
+      background: var(--macos-bg);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      color: #111;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      height: 60px;
+      backdrop-filter: saturate(180%) blur(10px);
+      -webkit-backdrop-filter: saturate(180%) blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+      z-index: 1000;
+    }
 
-  /* SIDEBAR */
-  .sidebar {
-    width: 220px;
-    background: var(--macos-bg);
-    border-right: 1px solid rgba(255,255,255,0.3);
-    color: #111;
-    position: fixed;
-    top: 60px;
-    bottom: 60px;
-    left: 0;
-    padding: 20px 15px;
-    overflow-y: auto;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-  }
-  .sidebar h2 {
-    margin-top: 0;
-    font-size: 1rem;
-    font-weight: 600;
-  }
-  .sidebar ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  .sidebar ul li a {
-    display: block;
-    padding: 10px 14px;
-    font-weight: 500;
-    color: #111;
-    text-decoration: none;
-    border-radius: 12px;
-  }
-  .sidebar ul li a:hover,
-  .sidebar ul li a.active {
-    background: rgba(10,132,255,0.15);
-    color: var(--macos-blue);
-  }
+    header {
+      top: 0;
+      justify-content: space-between;
+    }
 
-  iframe {
-    border: none;
-  }
+    footer {
+      border-top: solid 1px rgba(255, 255, 255, 0.3);
+      bottom: 0;
+      justify-content: center;
+      font-size: 0.85rem;
+    }
 
-  /* MAIN CONTENT */
-  main {
-    margin-left: 220px;
-    margin-top: 60px;
-    margin-bottom: 60px;
-    padding: 0;
-    flex-grow: 1;
-    color: #ffffff;
-  }
-  main h2 {
-    font-weight: 600;
-    color: #ffffff;
-  }
-  main p {
-    color: #ffffff;
-    line-height: 1.5;
-  }
+    .logo {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
 
-  /* SOCIAL BUTTONS */
-  .social-buttons {
-    display: flex;
-    gap: 15px;
-    margin-top: 25px;
-    flex-wrap: wrap;
-  }
-  .social-button {
-    flex: 1 1 150px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 12px 0;
-    border-radius: 12px;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #111;
-    background: rgba(255, 255, 255, 0.245);
-    border: 1px solid rgba(0, 0, 0, 0.302);
-    text-decoration: none;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  }
-  .social-button:hover {
-    transform: translateY(-2px) scale(1.02);
-    background: rgba(255,255,255,0.9);
-  }
+    /* BUTTONS */
+    button {
+      background: rgba(255, 255, 255, 0.6);
+      color: #222;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 12px;
+      padding: 8px 20px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.95rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
 
-  /* WELCOME MESSAGE */
-  #welcomeMessage {
-    position: fixed;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: var(--macos-trans);
-    color: white;
-    padding: 20px 40px;
-    border-radius: 12px;
-    font-size: 1.6rem;
-    font-weight: 600;
-    opacity: 0;
-    transition: opacity 0.7s ease;
-    z-index: 9999;
-    pointer-events: none;
-  }
+    button:hover {
+      transform: translateY(-2px) scale(1.02);
+      background: rgba(255, 255, 255, 0.9);
+    }
 
-  /* LOGOUT MODAL */
-  .confirm-overlay {
-    position: fixed;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.486);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(4px);
-    z-index: 99999;
-  }
-  .confirm-box {
-    background: #1c1c1e86;
-    color: #fff;
-    padding: 30px 40px;
-    border-radius: 16px;
-    text-align: center;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.479);
-    max-width: 320px;
-    width: 90%;
-    transform: scale(0.9);
-    opacity: 0;
-    transition: transform 0.25s ease, opacity 0.25s ease;
-  }
-  .confirm-overlay.show .confirm-box {
-    transform: scale(1);
-    opacity: 1;
-  }
-  .confirm-box h3 {
-    margin-bottom: 20px;
-    font-size: 1.2rem;
-  }
-  .confirm-box button {
-    margin: 0 10px;
-    padding: 10px 20px;
-    border-radius: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    border: none;
-    transition: all 0.2s ease;
-  }
-  .confirm-box button.yes {
-    background-color: #e74c3c;
-    color: #fff;
-  }
-  .confirm-box button.yes:hover {
-    background-color: #ff6b61;
-  }
-  .confirm-box button.no {
-    background-color: #ccc;
-    color: #111;
-  }
-  .confirm-box button.no:hover {
-    background-color: #eee;
-  }
+    .logout-button {
+      background: rgba(231, 76, 60, 0.15);
+      color: #c0392b;
+    }
 
-  /* DARKMODE */
- /* body.darkmode {
+    .logout-button:hover {
+      background: rgba(231, 76, 60, 0.35);
+    }
+
+    #darkmode-toggle {
+      background: rgba(10, 132, 255, 0.15);
+      color: var(--macos-blue);
+      margin-right: 12px;
+    }
+
+    #darkmode-toggle:hover {
+      background: rgba(10, 132, 255, 0.3);
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 220px;
+      background: var(--macos-bg);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 20px;
+      color: #111;
+      position: fixed;
+      top: 80px;
+      bottom: 80px;
+      left: 10px;
+      padding: 20px 15px;
+      overflow-y: auto;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .sidebar h2 {
+      margin-top: 0;
+      font-size: 1rem;
+      font-weight: 600;
+      background: rgba(0, 0, 0, 0.204);
+      padding: 5px;
+      border-radius: 15px;
+      text-align: center;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .sidebar ul li a {
+      display: block;
+      padding: 10px 14px;
+      font-weight: 500;
+      color: #111;
+      text-decoration: none;
+      border-radius: 12px;
+    }
+
+    .sidebar ul li a:hover,
+    .sidebar ul li a.active {
+      background: rgba(10, 132, 255, 0.15);
+      color: var(--macos-blue);
+    }
+
+    iframe {
+      border: none;
+    }
+
+    /* MAIN CONTENT */
+    main {
+      margin-left: 220px;
+      margin-top: 60px;
+      margin-bottom: 60px;
+      padding: 0;
+      flex-grow: 1;
+      color: #ffffff;
+    }
+
+    main h2 {
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    main p {
+      color: #ffffff;
+      line-height: 1.5;
+    }
+
+    /* SOCIAL BUTTONS */
+    .social-buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 25px;
+      flex-wrap: wrap;
+    }
+
+    .social-button {
+      flex: 1 1 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 0;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #111;
+      background: rgba(255, 255, 255, 0.245);
+      border: 1px solid rgba(0, 0, 0, 0.302);
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .social-button:hover {
+      transform: translateY(-2px) scale(1.02);
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    /* WELCOME MESSAGE */
+    #welcomeMessage {
+      position: fixed;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--macos-trans);
+      color: white;
+      padding: 20px 40px;
+      border-radius: 12px;
+      font-size: 1.6rem;
+      font-weight: 600;
+      opacity: 0;
+      transition: opacity 0.7s ease;
+      z-index: 9999;
+      pointer-events: none;
+    }
+
+    /* LOGOUT MODAL */
+    .confirm-overlay {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.486);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+      z-index: 99999;
+    }
+
+    .confirm-box {
+      background: #1c1c1e86;
+      color: #fff;
+      padding: 30px 40px;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.479);
+      max-width: 320px;
+      width: 90%;
+      transform: scale(0.9);
+      opacity: 0;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    .confirm-overlay.show .confirm-box {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    .confirm-box h3 {
+      margin-bottom: 20px;
+      font-size: 1.2rem;
+    }
+
+    .confirm-box button {
+      margin: 0 10px;
+      padding: 10px 20px;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+    }
+
+    .confirm-box button.yes {
+      background-color: #e74c3c;
+      color: #fff;
+    }
+
+    .confirm-box button.yes:hover {
+      background-color: #ff6b61;
+    }
+
+    .confirm-box button.no {
+      background-color: #ccc;
+      color: #111;
+    }
+
+    .confirm-box button.no:hover {
+      background-color: #eee;
+    }
+
+    /* DARKMODE */
+    /* body.darkmode {
     background: #000;
     color: #ddd;
   }*/
-  body.darkmode header,
-  body.darkmode footer,
-  body.darkmode .sidebar {
-    background: rgba(28, 28, 30, 0.575);
-    color: #ddd;
-    border-color: rgba(255,255,255,0.2);
-  }
-  body.darkmode button,
-  body.darkmode .social-button {
-    background: rgba(40,40,40,0.95);
-    color: #ddd;
-    border-color: rgba(255,255,255,0.2);
-  }
-  body.darkmode button:hover,
-  body.darkmode .social-button:hover {
-    background: rgba(60,60,60,1);
-  }
-  body.darkmode .logout-button {
-    background: rgba(231,76,60,0.25);
-    color: #ff6b61;
-  }
-  body.darkmode .logout-button:hover {
-    background: rgba(231,76,60,0.45);
-  }
-  body.darkmode #darkmode-toggle {
-    background: rgba(10,132,255,0.25);
-    color: #0a84ff;
-  }
-  body.darkmode #darkmode-toggle:hover {
-    background: rgba(10,132,255,0.45);
-  }
-  body.darkmode .sidebar ul li a {
-    color: #ddd;
-  }
-  body.darkmode .sidebar ul li a:hover,
-  body.darkmode .sidebar ul li a.active {
-    background: rgba(10,132,255,0.25);
-    color: #0a84ff;
-  }
-  body.darkmode #welcomeMessage {
-    background: #0a84ff;
-    color: #fff;
-  }
-  body.darkmode .confirm-box {
-    background: #2c2c2e8c;
-    color: #ddd;
-  }
-  body.darkmode .confirm-box button.yes {
-    background-color: #ff6b61;
-  }
-  body.darkmode .confirm-box button.no {
-    background-color: #555;
-    color: #ddd;
-  }
-  body.darkmode .confirm-box button.no:hover {
-    background-color: #777;
-  }
+    body.darkmode header,
+    body.darkmode footer,
+    body.darkmode .sidebar {
+      background: rgba(28, 28, 30, 0.575);
+      color: #ddd;
+      border-color: rgba(255, 255, 255, 0.2);
+    }
 
-  .btn-side {
-    position: absolute;
-    bottom: 15px;
-  }
+    body.darkmode button,
+    body.darkmode .social-button {
+      background: rgba(40, 40, 40, 0.95);
+      color: #ddd;
+      border-color: rgba(255, 255, 255, 0.2);
+    }
 
-  /* Standard: Button ausblenden */
-.menu-toggle {
-  display: none;
-}
+    body.darkmode button:hover,
+    body.darkmode .social-button:hover {
+      background: rgba(60, 60, 60, 1);
+    }
 
-footer a {
-  text-decoration: none;
-  color: #262626;
-}
+    body.darkmode .logout-button {
+      background: rgba(231, 76, 60, 0.25);
+      color: #ff6b61;
+    }
 
-body.darkmode footer a {
-  color: #818181;
-}
+    body.darkmode .logout-button:hover {
+      background: rgba(231, 76, 60, 0.45);
+    }
 
+    body.darkmode #darkmode-toggle {
+      background: rgba(10, 132, 255, 0.25);
+      color: #0a84ff;
+    }
 
-/* Nur auf mobilen Geräten sichtbar */
-@media (max-width: 860px) {
-  .menu-toggle {
-    display: inline-block;
-  }
-}
+    body.darkmode #darkmode-toggle:hover {
+      background: rgba(10, 132, 255, 0.45);
+    }
 
+    body.darkmode .sidebar ul li a {
+      color: #ddd;
+    }
 
-  /* RESPONSIVE */
-  @media (max-width: 860px) {
-    .sidebar {
+    body.darkmode .sidebar ul li a:hover,
+    body.darkmode .sidebar ul li a.active {
+      background: rgba(10, 132, 255, 0.25);
+      color: #0a84ff;
+    }
+
+    body.darkmode #welcomeMessage {
+      background: #0a84ff;
+      color: #fff;
+    }
+
+    body.darkmode .confirm-box {
+      background: #2c2c2e8c;
+      color: #ddd;
+    }
+
+    body.darkmode .confirm-box button.yes {
+      background-color: #ff6b61;
+    }
+
+    body.darkmode .confirm-box button.no {
+      background-color: #555;
+      color: #ddd;
+    }
+
+    body.darkmode .confirm-box button.no:hover {
+      background-color: #777;
+    }
+
+    .btn-side {
+      position: absolute;
+      bottom: 15px;
+    }
+
+    /* Standard: Button ausblenden */
+    .menu-toggle {
       display: none;
     }
-    main {
-      margin-left: 0;
-      margin-top: 80px;
+
+    footer a {
+      text-decoration: none;
+      color: #262626;
     }
-  }
+
+    body.darkmode footer a {
+      color: #818181;
+    }
+
+
+    /* Nur auf mobilen Geräten sichtbar */
+    @media (max-width: 860px) {
+      .menu-toggle {
+        display: inline-block;
+      }
+    }
+
+
+    /* RESPONSIVE */
+    @media (max-width: 860px) {
+      .sidebar {
+        display: none;
+      }
+
+      main {
+        margin-left: 0;
+        margin-top: 80px;
+      }
+    }
